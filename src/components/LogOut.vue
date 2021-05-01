@@ -18,13 +18,8 @@ export default {
     resetSession() {
       let self = this;
       this.$session.start();
-      if (this.$session.has('login')) {
-        this.$session.set('login', [false, '', '']);
-        self.$router.push('/login');
-      }
-      else {
-        self.$router.push('/login');
-      }
+      this.$session.destroy();
+      self.$router.push('/login');
     }
   },
   mounted() {
@@ -39,6 +34,7 @@ export default {
   margin: auto;
 }
 </style>
+
 
 
 

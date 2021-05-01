@@ -15,36 +15,35 @@
     </div>
     <div class="col-md-6">
       <div v-if="currentProduct">
-        <h4>Product</h4>
-        <a class="badge badge-primary"
-           href="/add">
-          Add
-        </a>
-        <div>
-          <label><strong>Name:</strong></label> {{ currentProduct.name }}
-        </div>
-        <div>
-          <label><strong>SKU:</strong></label> {{ currentProduct.sku }}
-        </div>
-        <div>
-          <label><strong>Description:</strong></label> {{ currentProduct.description }}
-        </div>
-        <div>
-          <label><strong>category:</strong></label> {{ currentCategory }}
-        </div>
-        <div>
-          <label><strong>Price:</strong></label> ${{ currentProduct.price }}
-        </div>
+        <div v-if="!ordered">
+          <h4>Product</h4>
+          <div>
+            <label><strong>Name:</strong></label> {{ currentProduct.name }}
+          </div>
+          <div>
+            <label><strong>SKU:</strong></label> {{ currentProduct.sku }}
+          </div>
+          <div>
+            <label><strong>Description:</strong></label> {{ currentProduct.description }}
+          </div>
+          <div>
+            <label><strong>category:</strong></label> {{ currentCategory }}
+          </div>
+          <div>
+            <label><strong>Price:</strong></label> ${{ currentProduct.price }}
+          </div>
 
-        <a class="badge badge-warning"
-           :href="'/products/' + currentProduct.id"
-        >
-          Edit
-        </a>
+          <button class="badge badge-warning" @click="orderProduct">
+            Order
+          </button>
+        </div>
+        <div v-else>
+          <br />
+          <p>Your Order has been placed...</p>
+        </div>
       </div>
       <div v-else>
         <br />
-        <a href="/add">Add New!</a>
         <p>Please click on a Product...</p>
       </div>
     </div>
@@ -58,15 +57,20 @@ import VueSession from 'vue-session';
 Vue.use(VueSession);
 
 export default {
-  name: "products-list",
+  name: "customer-products",
   data() {
     return {
       products: [],
       categories: [],
+      formData: {
+        pid:"",
+        cid: ""
+      },
       currentProduct: null,
       currentCategory: null,
       currentIndex: -1,
-      name: ""
+      name: "",
+      ordered: false
     };
   },
   methods: {
@@ -75,7 +79,7 @@ export default {
       this.$session.start();
       if (this.$session.has('login')) {
         let sdata = this.$session.get('login')
-        if (sdata[0] && sdata[2] == 'admin') {
+        if (sdata[0] && sdata[2] == 'customer') {
           ProductDataService.getAll()
               .then(response => {
                 this.products = response.data.products;
@@ -104,6 +108,34 @@ export default {
           _this.currentCategory = c.name;
         }
       })
+    },
+
+    orderProduct() {
+      let self = this;
+      this.$session.start();
+      if (this.$session.has('login')) {
+        let sdata = this.$session.get('login')
+        if (sdata[0] && sdata[2] == 'customer') {
+          this.formData.pid = this.currentProduct.id;
+          this.formData.cid = sdata[1];
+          ProductDataService.placeOrder(this.formData)
+              .then(response => {
+                if (response.data.placed) {
+                  this.ordered = true;
+                }
+                console.log(response.data);
+              })
+              .catch(e => {
+                console.log(e);
+              });
+        }
+        else {
+          self.$router.push('/login');
+        }
+      }
+      else {
+        self.$router.push('/login');
+      }
     }
   },
   mounted() {
@@ -119,6 +151,7 @@ export default {
   margin: auto;
 }
 </style>
+
 
 
 

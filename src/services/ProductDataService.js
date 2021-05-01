@@ -8,6 +8,10 @@ class ProductDataService {
     logIn(data) {
         return http.post("/login.php", data);
     }
+    
+    register(data) {
+        return http.post("/login.php/register", data);
+    }
 
     get(id) {
         return http.get(`/products.php/${id}`);
@@ -23,6 +27,10 @@ class ProductDataService {
 
     delete(id) {
         return http.delete(`/products.php/${id}`);
+    }
+    
+    placeOrder(data) {
+        return http.post("/orders.php/place", data);
     }
 }
 

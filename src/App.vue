@@ -6,10 +6,7 @@
         <li class="nav-item">
           <router-link to="/products" class="nav-link">Products</router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/add" class="nav-link">Add</router-link>
-        </li>
-        <li class="nav-item pull-right">
+        <li class="nav-item float-right">
           <router-link to="/logout" class="nav-link">Log Out</router-link>
         </li>
       </div>

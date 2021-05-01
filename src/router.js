@@ -31,6 +31,17 @@ export default new Router({
       path: "/logout",
       name: "logout",
       component: () => import("./components/LogOut")
-    }
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: () => import("./components/Register")
+    },
+    {
+      path: "/customer",
+      alias: "/customer_products",
+      name: "customer_products",
+      component: () => import("./components/CustomerProducts")
+    },
   ]
 });
