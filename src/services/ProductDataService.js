@@ -2,15 +2,15 @@ import http from "../http-common";
 
 class ProductDataService {
     getAll() {
-        return http.get("/products.php");
+        return http.get("/products.php/");
     }
     
     logIn(data) {
-        return http.post("/login.php", data);
+        return http.post("/login.php/", data);
     }
     
     register(data) {
-        return http.post("/login.php/register", data);
+        return http.post("/login.php/register/", data);
     }
 
     get(id) {
@@ -18,7 +18,7 @@ class ProductDataService {
     }
 
     create(data) {
-        return http.post("/products.php", data);
+        return http.post("/products.php/", data);
     }
 
     update(id, data) {
@@ -30,7 +30,7 @@ class ProductDataService {
     }
 
     getOrders() {
-        return http.get("/orders.php");
+        return http.get("/orders.php/");
     }
 
     getOrder(id) {
