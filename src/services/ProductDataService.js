@@ -28,6 +28,22 @@ class ProductDataService {
     delete(id) {
         return http.delete(`/products.php/${id}`);
     }
+
+    getOrders() {
+        return http.get("/orders.php");
+    }
+
+    getOrder(id) {
+        return http.patch(`/orders.php/${id}`);
+    }
+
+    getCusOrders(id) {
+        return http.get(`/orders.php/${id}`);
+    }
+
+    updateStatus(id, data) {
+        return http.put(`/orders.php/${id}`, data);
+    }
     
     placeOrder(data) {
         return http.post("/orders.php/place", data);
@@ -35,3 +51,6 @@ class ProductDataService {
 }
 
 export default new ProductDataService();
+
+
+

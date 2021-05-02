@@ -43,5 +43,17 @@ export default new Router({
       name: "customer_products",
       component: () => import("./components/CustomerProducts")
     },
+    {
+      path: "/orders",
+      alias: "/orders",
+      name: "orders",
+      component: () => import("./components/Orders")
+    },
+     {
+      path: "/orders/:id",
+      name: "order-details",
+      component: () => import("./components/Order")
+    },
   ]
 });
+

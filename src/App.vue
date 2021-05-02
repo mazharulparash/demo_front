@@ -6,7 +6,12 @@
         <li class="nav-item">
           <router-link to="/products" class="nav-link">Products</router-link>
         </li>
-        <li class="nav-item float-right">
+        <li class="nav-item">
+          <router-link to="/orders" class="nav-link">Orders</router-link>
+        </li>
+      </div>
+      <div class="navbar-nav ml-auto">
+        <li class="nav-item">
           <router-link to="/logout" class="nav-link">Log Out</router-link>
         </li>
       </div>
@@ -23,3 +28,4 @@ export default {
   name: "app"
 };
 </script>
+
